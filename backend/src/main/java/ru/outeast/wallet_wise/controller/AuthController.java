@@ -2,13 +2,13 @@ package ru.outeast.wallet_wise.controller;
 
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 import ru.outeast.wallet_wise.domain.dto.JwtAuthenticationResponse;
 import ru.outeast.wallet_wise.domain.dto.SignInRequest;
 import ru.outeast.wallet_wise.domain.dto.SignUpRequest;
+import ru.outeast.wallet_wise.exception.SignInException;
+import ru.outeast.wallet_wise.exception.UserExistsException;
 import ru.outeast.wallet_wise.service.AuthenticationService;
 
 
@@ -20,13 +20,15 @@ public class AuthController {
 
 
     @PostMapping("/sign-up")
-    public JwtAuthenticationResponse signUp(@RequestBody SignUpRequest request) throws Exception {
+    @ResponseStatus(HttpStatus.CREATED)
+    public JwtAuthenticationResponse signUp(@RequestBody SignUpRequest request) throws UserExistsException {
         return authenticationService.signUp(request);
     }
 
 
     @PostMapping("/sign-in")
-    public JwtAuthenticationResponse signIn(@RequestBody SignInRequest request) {
+    @ResponseStatus(HttpStatus.OK)
+    public JwtAuthenticationResponse signIn(@RequestBody SignInRequest request) throws SignInException {
         return authenticationService.signIn(request);
     }
 

@@ -1,6 +1,7 @@
 package ru.outeast.wallet_wise.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,6 +10,8 @@ import ru.outeast.wallet_wise.domain.dto.JwtAuthenticationResponse;
 import ru.outeast.wallet_wise.domain.dto.SignUpRequest;
 import ru.outeast.wallet_wise.domain.dto.SignInRequest;
 import ru.outeast.wallet_wise.domain.model.User;
+import ru.outeast.wallet_wise.exception.SignInException;
+import ru.outeast.wallet_wise.exception.UserExistsException;
 
 import java.util.UUID;
 
@@ -21,7 +24,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public JwtAuthenticationResponse signUp(SignUpRequest request) throws Exception {
+    public JwtAuthenticationResponse signUp(SignUpRequest request) throws UserExistsException {
         var user = new User();
         // user.getDataFromSendUser(request.getUser());
         user.setNickname(request.getNickname());
@@ -39,14 +42,14 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     @Override
-    public JwtAuthenticationResponse signIn(SignInRequest request) {
+    public JwtAuthenticationResponse signIn(SignInRequest request) throws SignInException {
 
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     request.getNickname(),
                     request.getPassword()));
         } catch (Exception ignored) {
-            throw new RuntimeException();
+            throw new SignInException();
         }
 
         var jwt = jwtService.generateToken(userService.getByNickname(request.getNickname()));
