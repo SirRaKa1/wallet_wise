@@ -3,6 +3,8 @@ package ru.outeast.wallet_wise.service;
 
 import ru.outeast.wallet_wise.domain.model.User;
 
+import java.util.UUID;
+
 public interface UserService {
 
     public User save(User user);
@@ -13,7 +15,7 @@ public interface UserService {
 
     public User getCurrentUser();
 
-    public User getById(long id);
+    public User getById(UUID id);
 
     //public User updateCurrentUser(SendUser user);
 

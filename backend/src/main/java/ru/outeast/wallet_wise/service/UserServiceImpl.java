@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.repository.UserRepository;
 
+import java.util.UUID;
+
 
 @Service
 @RequiredArgsConstructor
@@ -43,7 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User getById(long id){
+    public User getById(UUID id){
         return userRepository.findById(id).orElse(null);
     }
 
