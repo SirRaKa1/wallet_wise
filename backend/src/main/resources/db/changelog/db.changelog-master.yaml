@@ -15,7 +15,104 @@ databaseChangeLog:
               - column:
                   name: nickname
                   type: text
-
               - column:
                   name: password
                   type: text
+
+        - createTable:
+            tableName: wallets
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                      primaryKey: true
+                      nullable: false
+              - column:
+                  name: balance
+                  type: float
+              - column:
+                  name: name
+                  type: string
+                # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
+
+        - createTable:
+            tableName: categories
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                      primaryKey: true
+                      nullable: false
+              - column:
+                  name: name
+                  type: string
+                # TODO: what about bitmap?
+              - column:
+                  name: icon
+                  type: string
+                # TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
+                # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
+
+        - createTable:
+            tableName: targets
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                      primaryKey: true
+                      nullable: false
+              - column:
+                  name: name
+                  type: string
+              - column:
+                  name: target-cost
+                  type: float
+              - column:
+                  name: balance
+                  type: float
+                # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
+
+        - createTable:
+            tableName: expenses
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                      primaryKey: true
+                      nullable: false
+              - column:
+                  name: name
+                  type: string
+              - column:
+                  name: cost
+                  type: float
+              - column:
+                  name: date
+                  type: date
+                # TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
+                # TODO: belongsTo(Category, FK: category, onDelete: "set NULL")
+
+        - createTable:
+            tableName: incomes
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                      primaryKey: true
+                      nullable: false
+              - column:
+                  name: name
+                  type: string
+              - column:
+                  name: cost
+                  type: float
+              - column:
+                  name: date
+                  type: date
+                # TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
+                # TODO: belongsTo(Target, FK: target, onDelete: "set NULL")
