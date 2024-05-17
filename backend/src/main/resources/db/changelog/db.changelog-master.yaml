@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: rakalus
+      changes:
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id
+                  type: UUID
+                  constraints:
+                      primaryKey: true
+                      nullable: false
+              - column:
+                  name: nickname
+                  type: text
+
+              - column:
+                  name: password
+                  type: text
+
+              - column:
+                  name: name
+                  type: text
+
+              - column:
+                  name: surname
+                  type: text
