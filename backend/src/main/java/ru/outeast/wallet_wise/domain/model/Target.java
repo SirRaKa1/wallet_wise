@@ -1,7 +1,9 @@
 package ru.outeast.wallet_wise.domain.model;
 
+import java.util.List;
 import java.util.UUID;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,5 +30,12 @@ public class Target {
     @Column(name = "balance")
     private Float balance;
 
-    // TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
+    @OneToMany(mappedBy = "target")
+    private List<Income> incomes;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    @JsonIgnore
+    private User user;
+
 }

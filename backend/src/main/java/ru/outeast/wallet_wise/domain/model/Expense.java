@@ -1,5 +1,6 @@
 package ru.outeast.wallet_wise.domain.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,6 +30,15 @@ public class Expense {
     @Column(name = "date")
     private Date date;
 
-    // TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
-    // TODO: belongsTo(Category, FK: category, onDelete: "set NULL")
+    @ManyToOne
+    @JoinColumn(name = "wallet_id")
+    @JsonIgnore
+    private Wallet wallet;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    @JsonIgnore
+    private Category category;
+
+
 }

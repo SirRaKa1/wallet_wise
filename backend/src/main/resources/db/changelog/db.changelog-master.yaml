@@ -40,7 +40,13 @@ databaseChangeLog:
               - column:
                   name: name
                   type: text
-                # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: wallets_user_id_users_id
+                    references: users(id)
+                    onDelete: CASCADE
 
         - createTable:
             tableName: categories
@@ -54,13 +60,20 @@ databaseChangeLog:
               - column:
                   name: name
                   type: text
-                # TODO: what about bitmap?
               - column:
-                  name: icon
-                  type: text
-                # TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
-                # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
-
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: categories_user_id_users_id
+                    references: users(id)
+                    onDelete: CASCADE
+              - column:
+                  name: wallet_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: categories_wallet_id_wallets_id
+                    references: wallets(id)
+                    onDelete: CASCADE
         - createTable:
             tableName: targets
             columns:
@@ -79,8 +92,13 @@ databaseChangeLog:
               - column:
                   name: balance
                   type: float
-                # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
-
+              - column:
+                  name: user_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: targets_user_id_users_id
+                    references: users(id)
+                    onDelete: CASCADE
         - createTable:
             tableName: expenses
             columns:
@@ -99,8 +117,20 @@ databaseChangeLog:
               - column:
                   name: date
                   type: date
-                # TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
-                # TODO: belongsTo(Category, FK: category, onDelete: "set NULL")
+              - column:
+                  name: wallet_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: expenses_wallet_id_wallets_id
+                    references: wallets(id)
+                    onDelete: CASCADE
+              - column:
+                  name: category_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: expenses_category_id_categories_id
+                    references: categories(id)
+                    onDelete: CASCADE
 
         - createTable:
             tableName: incomes
@@ -120,5 +150,18 @@ databaseChangeLog:
               - column:
                   name: date
                   type: date
-                # TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
-                # TODO: belongsTo(Target, FK: target, onDelete: "set NULL")
+              - column:
+                  name: wallet_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: incomes_wallet_id_wallets_id
+                    references: wallets(id)
+                    onDelete: CASCADE
+              - column:
+                  name: target_id
+                  type: UUID
+                  constraints:
+                    foreignKeyName: incomes_target_id_targets_id
+                    references: targets(id)
+                    onDelete: set NULL
+

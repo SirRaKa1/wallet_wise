@@ -37,6 +37,12 @@ public class User implements UserDetails {
     @Column(name = "surname")
     private String surname;
 
+    @OneToMany(mappedBy = "user")
+    private List<Wallet> wallets;
+
+    @OneToMany(mappedBy = "user")
+    private List<Target> targets;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
