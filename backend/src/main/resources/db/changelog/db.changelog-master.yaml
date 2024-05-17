@@ -18,6 +18,12 @@ databaseChangeLog:
               - column:
                   name: password
                   type: text
+              - column:
+                  name: name
+                  type: text
+              - column:
+                  name: surname
+                  type: text
 
         - createTable:
             tableName: wallets
@@ -33,7 +39,7 @@ databaseChangeLog:
                   type: float
               - column:
                   name: name
-                  type: string
+                  type: text
                 # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
 
         - createTable:
@@ -47,11 +53,11 @@ databaseChangeLog:
                       nullable: false
               - column:
                   name: name
-                  type: string
+                  type: text
                 # TODO: what about bitmap?
               - column:
                   name: icon
-                  type: string
+                  type: text
                 # TODO: belongsTo(Wallet, FK: wallet, onDelete: "CASCADE")
                 # TODO: belongsTo(User, FK: owner, onDelete: "CASCADE")
 
@@ -66,7 +72,7 @@ databaseChangeLog:
                       nullable: false
               - column:
                   name: name
-                  type: string
+                  type: text
               - column:
                   name: target-cost
                   type: float
@@ -86,7 +92,7 @@ databaseChangeLog:
                       nullable: false
               - column:
                   name: name
-                  type: string
+                  type: text
               - column:
                   name: cost
                   type: float
@@ -107,7 +113,7 @@ databaseChangeLog:
                       nullable: false
               - column:
                   name: name
-                  type: string
+                  type: text
               - column:
                   name: cost
                   type: float
