@@ -5,6 +5,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.outeast.wallet_wise.domain.model.User;
+import ru.outeast.wallet_wise.exception.UserExistsException;
 import ru.outeast.wallet_wise.repository.UserRepository;
 
 import java.util.UUID;
@@ -21,10 +22,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User create(User user) throws Exception {
+    public User create(User user) throws UserExistsException {
 
         if (getByNickname(user.getNickname()) != null)
-            throw new RuntimeException();
+            throw new UserExistsException();
 
         return save(user);
 
