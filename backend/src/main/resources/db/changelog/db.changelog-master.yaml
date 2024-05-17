@@ -1,29 +1,166 @@
 databaseChangeLog:
-  - changeSet:
-      id: 1
-      author: rakalus
-      changes:
-        - createTable:
-            tableName: users
-            columns:
-              - column:
-                  name: id
-                  type: UUID
-                  constraints:
-                      primaryKey: true
-                      nullable: false
-              - column:
-                  name: nickname
-                  type: text
+    - changeSet:
+          id: 1
+          author: rakalus
+          changes:
+              - createTable:
+                    tableName: users
+                    columns:
+                        - column:
+                              name: id
+                              type: UUID
+                              constraints:
+                                  primaryKey: true
+                                  nullable: false
+                        - column:
+                              name: nickname
+                              type: text
+                        - column:
+                              name: password
+                              type: text
+                        - column:
+                              name: name
+                              type: text
+                        - column:
+                              name: surname
+                              type: text
 
-              - column:
-                  name: password
-                  type: text
+              - createTable:
+                    tableName: wallets
+                    columns:
+                        - column:
+                              name: id
+                              type: UUID
+                              constraints:
+                                  primaryKey: true
+                                  nullable: false
+                        - column:
+                              name: balance
+                              type: float
+                        - column:
+                              name: name
+                              type: text
+                        - column:
+                              name: userId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: user
+                                  references: users(id)
+                                  onDelete: CASCADE
 
-              - column:
-                  name: name
-                  type: text
+              - createTable:
+                    tableName: categories
+                    columns:
+                        - column:
+                              name: id
+                              type: UUID
+                              constraints:
+                                  primaryKey: true
+                                  nullable: false
+                        - column:
+                              name: name
+                              type: text
+                        - column:
+                              name: userId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: user
+                                  references: users(id)
+                                  onDelete: CASCADE
+                        - column:
+                              name: walletId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: wallet
+                                  references: wallets(id)
+                                  onDelete: CASCADE
+              - createTable:
+                    tableName: targets
+                    columns:
+                        - column:
+                              name: id
+                              type: UUID
+                              constraints:
+                                  primaryKey: true
+                                  nullable: false
+                        - column:
+                              name: name
+                              type: text
+                        - column:
+                              name: targetCost
+                              type: float
+                        - column:
+                              name: balance
+                              type: float
+                        - column:
+                              name: userId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: user
+                                  references: users(id)
+                                  onDelete: CASCADE
+              - createTable:
+                    tableName: expenses
+                    columns:
+                        - column:
+                              name: id
+                              type: UUID
+                              constraints:
+                                  primaryKey: true
+                                  nullable: false
+                        - column:
+                              name: name
+                              type: text
+                        - column:
+                              name: cost
+                              type: float
+                        - column:
+                              name: date
+                              type: date
+                        - column:
+                              name: walletId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: wallet
+                                  references: wallets(id)
+                                  onDelete: CASCADE
+                        - column:
+                              name: categoryId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: category
+                                  references: categories(id)
+                                  onDelete: CASCADE
 
-              - column:
-                  name: surname
-                  type: text
+              - createTable:
+                    tableName: incomes
+                    columns:
+                        - column:
+                              name: id
+                              type: UUID
+                              constraints:
+                                  primaryKey: true
+                                  nullable: false
+                        - column:
+                              name: name
+                              type: text
+                        - column:
+                              name: cost
+                              type: float
+                        - column:
+                              name: date
+                              type: date
+                        - column:
+                              name: walletId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: wallet
+                                  references: wallets(id)
+                                  onDelete: CASCADE
+                        - column:
+                              name: targetId
+                              type: UUID
+                              constraints:
+                                  foreignKeyName: target
+                                  references: targets(id)
+                                  onDelete: set NULL
