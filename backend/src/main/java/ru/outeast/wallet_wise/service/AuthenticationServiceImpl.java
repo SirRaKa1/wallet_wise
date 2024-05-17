@@ -23,11 +23,13 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     @Override
     public JwtAuthenticationResponse signUp(SignUpRequest request) throws Exception {
         var user = new User();
-        //user.getDataFromSendUser(request.getUser());
+        // user.getDataFromSendUser(request.getUser());
         user.setNickname(request.getNickname());
+        user.setName(request.getName());
+        user.setSurname(request.getSurname());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setId(UUID.randomUUID());
-        //user.setRole("ROLE_USER");
+        // user.setRole("ROLE_USER");
 
         if (userService.create(user) != null) {
             var jwt = jwtService.generateToken(user);
@@ -42,10 +44,8 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         try {
             authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                     request.getNickname(),
-                    request.getPassword()
-            ));
-        }
-        catch (Exception ignored){
+                    request.getPassword()));
+        } catch (Exception ignored) {
             throw new RuntimeException();
         }
 
