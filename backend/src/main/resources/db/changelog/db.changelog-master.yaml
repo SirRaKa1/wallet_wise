@@ -19,3 +19,11 @@ databaseChangeLog:
               - column:
                   name: password
                   type: text
+
+              - column:
+                  name: name
+                  type: text
+
+              - column:
+                  name: surname
+                  type: text

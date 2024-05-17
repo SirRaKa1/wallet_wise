@@ -31,6 +31,12 @@ public class User implements UserDetails {
     @JsonIgnore
     private String password;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "surname")
+    private String surname;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of();
