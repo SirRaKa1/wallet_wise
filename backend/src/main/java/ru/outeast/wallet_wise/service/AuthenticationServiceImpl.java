@@ -10,6 +10,8 @@ import ru.outeast.wallet_wise.domain.dto.SignUpRequest;
 import ru.outeast.wallet_wise.domain.dto.SignInRequest;
 import ru.outeast.wallet_wise.domain.model.User;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class AuthenticationServiceImpl implements AuthenticationService {
@@ -24,6 +26,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         //user.getDataFromSendUser(request.getUser());
         user.setNickname(request.getNickname());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setId(UUID.randomUUID());
         //user.setRole("ROLE_USER");
 
         if (userService.create(user) != null) {
