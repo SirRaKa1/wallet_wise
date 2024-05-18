@@ -13,6 +13,8 @@ import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.exception.SignInException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
 
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 
 @Service
@@ -24,20 +26,24 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     @Override
-    public JwtAuthenticationResponse signUp(SignUpRequest request) throws UserExistsException {
-        var user = new User();
+    public Map<String, String> signUp(SignUpRequest request) throws UserExistsException {
+        User user = new User();
+        UUID userId = UUID.randomUUID();
         // user.getDataFromSendUser(request.getUser());
         user.setNickname(request.getNickname());
         user.setName(request.getName());
         user.setSurname(request.getSurname());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
-        user.setId(UUID.randomUUID());
+        user.setId(userId);
         user.setMail(request.getMail());
         // user.setRole("ROLE_USER");
 
         if (userService.create(user) != null) {
             var jwt = jwtService.generateToken(user);
-            return new JwtAuthenticationResponse(jwt);
+            Map<String, String> responseMap = new HashMap<String, String>();
+            responseMap.put("jwt", jwt);
+            responseMap.put("userId", userId.toString());
+            return responseMap;
         }
         return null;
     }
