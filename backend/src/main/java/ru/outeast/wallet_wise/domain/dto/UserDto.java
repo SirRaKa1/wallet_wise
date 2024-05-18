@@ -1,10 +1,6 @@
 package ru.outeast.wallet_wise.domain.dto;
 
-import java.util.UUID;
-
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
