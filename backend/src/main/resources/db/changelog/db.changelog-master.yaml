@@ -24,6 +24,9 @@ databaseChangeLog:
               - column:
                   name: surname
                   type: text
+              - column:
+                  name: mail
+                  type: text
 
         - createTable:
             tableName: wallets

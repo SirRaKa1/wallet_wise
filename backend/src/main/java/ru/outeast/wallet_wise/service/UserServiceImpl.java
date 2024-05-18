@@ -3,6 +3,8 @@ package ru.outeast.wallet_wise.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+
+import ru.outeast.wallet_wise.domain.dto.UserDto;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
@@ -23,12 +25,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User create(User user) throws UserExistsException {
-
         if (getByNickname(user.getNickname()) != null)
             throw new UserExistsException();
-
         return save(user);
-
     }
 
     @Override
@@ -47,34 +46,25 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateCurrentUser(User user) throws UserDoesNotExistException {
-        //TODO: get currentUserId?
-        return null;
-
-    }
-
-    /*
-     * @Override
-     * public User updateCurrentUser(SendUser user) {
-     * User oldUser = getCurrentUser();
-     * delete(oldUser);
-     * oldUser.getDataFromSendUser(user);
-     * return save(oldUser);
-     * }
-     */
-
-    @Override
-    public User updateUser(User user) throws UserDoesNotExistException {
-        if ((user.getId() == null)||(!userRepository.existsById(user.getId())))
+    public User updateUser(UserDto userBody, UUID userId) throws UserDoesNotExistException {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user == null)
             throw new UserDoesNotExistException();
-        user.setNickname(null);
-        user.setPassword(null);
+        if (userBody.getNickname() != null)
+            user.setNickname(userBody.getNickname());
+        if (userBody.getMail() != null)
+            user.setMail(userBody.getMail());
+        if (userBody.getName() != null)
+            user.setName(userBody.getName());
+        if (userBody.getSurname() != null)
+            user.setSurname(userBody.getSurname());
+
         return save(user);
     }
 
     @Override
-    public void delete(User user) {
-        userRepository.delete(user);
+    public void delete(UUID userId) {
+        userRepository.deleteById(userId);
     }
 
 }

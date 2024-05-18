@@ -13,14 +13,13 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 import java.util.function.Function;
 
 @Service
 public class JwtServiceImpl implements JwtService {
 
     private long EXPIRATIONTIME = 1000 * 60 * 60; // 1 hr
-
-
 
     private String jwtSigningKey = "53A73E5F1C4E0A2D3B5F2D784E6A1B423D6F247D1F6E5C3A596D635A75327855";
 
@@ -29,17 +28,18 @@ public class JwtServiceImpl implements JwtService {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", user.getId());
 
-
-        return Jwts.builder().setClaims(claims).setSubject(user.getUsername())
+        return Jwts.builder()
+                .setId(user.getId().toString())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRATIONTIME))
-                .signWith(getSigningKey(), SignatureAlgorithm.HS256).compact();
+                .signWith(getSigningKey(), SignatureAlgorithm.HS256)
+                .compact();
     }
 
     @Override
-    public boolean isTokenValid(String token, UserDetails userDetails) {
-        final String login = extractUserLogin(token);
-        return (login.equals(userDetails.getUsername())) && !isTokenExpired(token);
+    public boolean isTokenValid(String token) {
+        final UUID id = extractUserId(token);
+        return (id != null) && !isTokenExpired(token);
     }
 
     private boolean isTokenExpired(String token) {
@@ -66,7 +66,7 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String extractUserLogin(String token) {
-        return extractClaim(token, Claims::getSubject);
+    public UUID extractUserId(String token) {
+        return UUID.fromString(extractClaim(token, Claims::getId));
     }
 }
