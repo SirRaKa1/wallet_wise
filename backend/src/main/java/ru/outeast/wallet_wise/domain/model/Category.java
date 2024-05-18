@@ -28,12 +28,12 @@ public class Category {
     private byte[] icon;*/
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "walletId")
+    @JoinColumn(name = "wallet_id")
     @JsonIgnore
     private Wallet wallet;
 

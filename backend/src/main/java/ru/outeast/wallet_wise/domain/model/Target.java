@@ -24,7 +24,7 @@ public class Target {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "targetCost")
+    @Column(name = "target-cost")
     private Float targetCost;
 
     @Column(name = "balance")
@@ -34,7 +34,7 @@ public class Target {
     private List<Income> incomes;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
