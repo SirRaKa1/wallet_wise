@@ -1,14 +1,13 @@
 package ru.outeast.wallet_wise.domain.dto.request;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.Data;
 
 @Data
 @Schema(description = "Запрос на регистрацию")
 public class SignUpRequest {
-    @Schema(description = "Никнейм", example = "user")
+    @Schema(description = "Никнейм", example = "nickname")
     @Size(min = 5, max = 50, message = "Никнейм должен содержать от 5 до 50 символов")
     @NotBlank(message = "Никнейм не может быть пустым")
     private String nickname;
@@ -32,5 +31,6 @@ public class SignUpRequest {
     @Schema(description = "User Email", example = "mail@mail.mail")
     @Size(max = 50, message = "User mail must contain no more than 50 characters")
     @NotBlank(message = "Mail can not be empty")
+    @Email(message = "Mail must use format mail@mail.mail")
     private String mail;
 }

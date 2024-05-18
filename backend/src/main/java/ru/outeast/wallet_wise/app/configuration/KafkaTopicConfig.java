@@ -36,5 +36,11 @@ public class KafkaTopicConfig {
         NewTopic newTopic = TopicBuilder.name("auth_topic").build();
         return newTopic;
     }
+
+    @Bean
+    public NewTopic requestTopic(){
+        NewTopic newTopic = TopicBuilder.name("request_topic").build();
+        return newTopic;
+    }
 }
 

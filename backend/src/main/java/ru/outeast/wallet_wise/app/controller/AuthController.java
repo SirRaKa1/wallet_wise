@@ -2,7 +2,7 @@ package ru.outeast.wallet_wise.app.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import jakarta.validation.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -36,8 +36,8 @@ public class AuthController {
         kafkaSender.sendMessage("Пользователь вошёл", "auth_topic");
         walletService.createDefaults(UUID.fromString(authInfo.get("userId")));
         return new JwtAuthenticationResponse(authInfo.get("jwt"));
-    }
 
+    }
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.OK)
