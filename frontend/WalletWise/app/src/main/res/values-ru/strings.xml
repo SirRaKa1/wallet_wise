@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Wallet Wise</string>
+    <string name="authorization__greeting">Добро пожаловать в WalletWise</string>
+    <string name="authorization__sig_up">Зарегестрироваться</string>
+    <string name="authorization__sing_in">Войти</string>
+    <string name="authorization__question">Уже есть аккаунт?</string>
+    <string name="authorization__register">Регистрация</string>
+    <string name="authorization__authorization">Авторизация</string>
+    <string name="authorization__login">Логин</string>
+    <string name="authorization__pass">Пароль</string>
+    <string name="authorization__firstname">Ваше имя</string>
+    <string name="authorization__lastname">Ваше фамилия</string>
+    <string name="authorization__email">e-mail</string>
+    <string name="authorization__confirm_pass">Повторите пароль</string>
+    <string name="authorization__create_acc">Создать аккаунт</string>
+</resources>

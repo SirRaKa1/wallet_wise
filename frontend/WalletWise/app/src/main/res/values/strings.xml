@@ -1,0 +1,16 @@
+<resources>
+    <string name="app_name">Wallet Wise</string>
+    <string name="authorization__greeting">Welcome to WalletWise</string>
+    <string name="authorization__sig_up">Sign up</string>
+    <string name="authorization__sing_in">Sing in</string>
+    <string name="authorization__question">Do you already have an account?</string>
+    <string name="authorization__register">Registration</string>
+    <string name="authorization__authorization">Authorization</string>
+    <string name="authorization__login">Login</string>
+    <string name="authorization__pass">Password</string>
+    <string name="authorization__firstname">Your name</string>
+    <string name="authorization__lastname">Your last name</string>
+    <string name="authorization__email">e-mail</string>
+    <string name="authorization__confirm_pass">Repeat the password</string>
+    <string name="authorization__create_acc">Create an account</string>
+</resources>
