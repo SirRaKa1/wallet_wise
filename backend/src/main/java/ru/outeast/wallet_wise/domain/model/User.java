@@ -36,6 +36,9 @@ public class User implements UserDetails {
 
     @Column(name = "surname")
     private String surname;
+    
+    @Column(name = "mail")
+    private String mail;
 
     @OneToMany(mappedBy = "user")
     private List<Wallet> wallets;

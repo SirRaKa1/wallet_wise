@@ -1,7 +1,6 @@
 package ru.outeast.wallet_wise.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -32,6 +31,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setSurname(request.getSurname());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
         user.setId(UUID.randomUUID());
+        user.setMail(request.getMail());
         // user.setRole("ROLE_USER");
 
         if (userService.create(user) != null) {

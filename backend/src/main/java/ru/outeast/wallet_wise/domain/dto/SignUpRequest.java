@@ -28,5 +28,9 @@ public class SignUpRequest {
     @NotBlank(message = "Фамилия не может быть пустой")
     private String surname;
     // private SendUser user;
-
+    
+    @Schema(description = "User Email", example = "mail@mail.mail")
+    @Size(max = 50, message = "User mail must contain no more than 50 characters")
+    @NotBlank(message = "Mail can not be empty")
+    private String mail;
 }
