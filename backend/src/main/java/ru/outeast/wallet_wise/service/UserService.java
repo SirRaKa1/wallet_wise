@@ -2,6 +2,7 @@ package ru.outeast.wallet_wise.service;
 
 
 import ru.outeast.wallet_wise.domain.model.User;
+import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
 
 import java.util.UUID;
@@ -20,7 +21,9 @@ public interface UserService {
 
     //public User updateCurrentUser(SendUser user);
 
-    public User updateCurrentUser(User user);
+    public User updateCurrentUser(User user) throws UserDoesNotExistException;
+
+    User updateUser(User user) throws UserDoesNotExistException;
 
     void delete(User user);
 }

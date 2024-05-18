@@ -1,10 +1,10 @@
 package ru.outeast.wallet_wise.service;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Example;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import ru.outeast.wallet_wise.domain.model.User;
+import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
 import ru.outeast.wallet_wise.repository.UserRepository;
 
@@ -46,6 +46,13 @@ public class UserServiceImpl implements UserService {
         return userRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public User updateCurrentUser(User user) throws UserDoesNotExistException {
+        //TODO: get currentUserId?
+        return null;
+
+    }
+
     /*
      * @Override
      * public User updateCurrentUser(SendUser user) {
@@ -57,9 +64,12 @@ public class UserServiceImpl implements UserService {
      */
 
     @Override
-    public User updateCurrentUser(User user) {
-        userRepository.delete(user);
-        return userRepository.save(user);
+    public User updateUser(User user) throws UserDoesNotExistException {
+        if ((user.getId() == null)||(!userRepository.existsById(user.getId())))
+            throw new UserDoesNotExistException();
+        user.setNickname(null);
+        user.setPassword(null);
+        return save(user);
     }
 
     @Override
