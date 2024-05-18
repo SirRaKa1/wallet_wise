@@ -1,6 +1,5 @@
 package ru.outeast.wallet_wise.app.controller;
 
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.*;
@@ -15,9 +14,10 @@ import ru.outeast.wallet_wise.domain.dto.response.JwtAuthenticationResponse;
 import ru.outeast.wallet_wise.exception.SignInException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
 import ru.outeast.wallet_wise.service.AuthenticationService;
+import ru.outeast.wallet_wise.service.WalletService;
 
-import java.util.Set;
-
+import java.util.Map;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/auth")
@@ -26,24 +26,24 @@ import java.util.Set;
 public class AuthController {
     private final AuthenticationService authenticationService;
     private final KafkaSender kafkaSender;
-
+    private final WalletService walletService;
 
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
     @ResponseStatus(HttpStatus.CREATED)
-    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) throws UserExistsException{
-        JwtAuthenticationResponse jwtAuthenticationResponse = authenticationService.signUp(request);
-        kafkaSender.sendMessage("Пользователь вошёл","auth_topic");
-        return jwtAuthenticationResponse;
+    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) throws UserExistsException {
+        Map<String, String> authInfo = authenticationService.signUp(request);
+        kafkaSender.sendMessage("Пользователь вошёл", "auth_topic");
+        walletService.createDefaults(UUID.fromString(authInfo.get("userId")));
+        return new JwtAuthenticationResponse(authInfo.get("jwt"));
+
     }
-
-
     @Operation(summary = "Авторизация пользователя")
     @PostMapping("/sign-in")
     @ResponseStatus(HttpStatus.OK)
     public JwtAuthenticationResponse signIn(@RequestBody @Valid SignInRequest request) throws SignInException {
         JwtAuthenticationResponse jwtAuthenticationResponse = authenticationService.signIn(request);
-        kafkaSender.sendMessage("Пользователь вошёл","auth_topic");
+        kafkaSender.sendMessage("Пользователь вошёл", "auth_topic");
         return jwtAuthenticationResponse;
     }
 
