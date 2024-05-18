@@ -45,7 +45,13 @@ fun NavGraphBuilder.authorizationGraph(
                         incl = true
                     )
                 },
-                onSignUp = onSignIn
+                onSignUp = {
+                    pageNavigation(
+                        navController = navController,
+                        destination = signUp,
+                        incl = true
+                    )
+                },
             )
         }
         composable(
