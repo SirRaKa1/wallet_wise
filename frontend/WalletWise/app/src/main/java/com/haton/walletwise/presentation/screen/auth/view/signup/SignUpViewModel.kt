@@ -34,6 +34,7 @@ class SignUpViewModel @Inject constructor(
         state: SignUpState.Default
     ) {
         when (event) {
+            SignUpEvent.EnterView -> _state.value = SignUpState.Default
             SignUpEvent.SignIn -> {
                 _state.value = SignUpState.SignIn
             }
@@ -55,9 +56,7 @@ class SignUpViewModel @Inject constructor(
         state: SignUpState.SignIn
     ) {
         when (event) {
-            SignUpEvent.EnterView -> {
-                _state.value = SignUpState.Default
-            }
+            SignUpEvent.EnterView -> _state.value = SignUpState.Default
 
             else -> Log.d("Debug", "SignUpState.SignIn - $event: ${_state.value}")
         }
@@ -68,6 +67,7 @@ class SignUpViewModel @Inject constructor(
         state: SignUpState.SignUpAttempt
     ) {
         when (event) {
+            SignUpEvent.EnterView -> _state.value = SignUpState.Default
             SignUpEvent.SignUpError -> {
                 _state.value = SignUpState.SignUpError
             }
@@ -95,6 +95,7 @@ class SignUpViewModel @Inject constructor(
         state: SignUpState.SignUpError
     ) {
         when (event) {
+            SignUpEvent.EnterView -> _state.value = SignUpState.Default
             SignUpEvent.SignIn -> {
                 _state.value = SignUpState.SignIn
             }

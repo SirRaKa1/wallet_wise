@@ -1,10 +1,6 @@
 package com.haton.walletwise.presentation.screen.auth.model
 
 sealed class AuthState {
-    /**
-     * View
-     */
-    data object FirstEntryView : AuthState()
-    data object SigInView : AuthState()
-    data object SignUpView : AuthState()
+    data object Default : AuthState()
+    data object HomeScreen : AuthState()
 }

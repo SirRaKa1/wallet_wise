@@ -56,6 +56,7 @@ fun SignUpView(
 
             SignUpState.SignIn -> {
                 onSignIn()
+                signUpViewModel.send(SignUpEvent.EnterView)
             }
 
             SignUpState.SignUpAttempt -> {

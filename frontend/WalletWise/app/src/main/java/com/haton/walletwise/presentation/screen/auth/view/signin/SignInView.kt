@@ -72,13 +72,15 @@ fun SignInView(
 
             SignInState.SignUp -> {
                 onSignUp()
+                signInViewModel.send(SignInEvent.EnterView)
             }
         }
     }
 
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(WiseCommon.colors.background)) {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(WiseCommon.colors.background)) {
         Box(
             modifier = Modifier.fillMaxWidth(),
             contentAlignment = Alignment.Center

@@ -9,6 +9,7 @@ import androidx.navigation.compose.rememberNavController
 import com.haton.walletwise.presentation.animation.SlideHorizontally
 import com.haton.walletwise.presentation.navigation.graph.authorization.AuthorizationNavGraph
 import com.haton.walletwise.presentation.navigation.graph.authorization.authorizationGraph
+import com.haton.walletwise.presentation.screen.auth.model.AuthEvent
 
 @Composable
 fun AuthScreen(
@@ -22,7 +23,10 @@ fun AuthScreen(
             startDestination = AuthorizationNavGraph.Authorization.destination,
             exitTransition = { navAnimation.exitTransitionSlideOut() },
         ) {
-            authorizationGraph(authNavController)
+            authorizationGraph(
+                navController = authNavController,
+                onSignIn = { authViewModel.send(AuthEvent.EnterHomeScreen) }
+            )
         }
     }
 }

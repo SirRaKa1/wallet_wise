@@ -9,7 +9,6 @@ fun pageNavigation(
     navController: NavController,
     destination: String,
     incl: Boolean = true,
-    bundle: Bundle? = null
 ) {
     navController.navigate(
         destination,
@@ -17,7 +16,7 @@ fun pageNavigation(
             popUpTo(navController.graph.findStartDestination().id) {
                 inclusive = incl
             }
-            launchSingleTop = true
+            launchSingleTop = false
         },
     )
 }

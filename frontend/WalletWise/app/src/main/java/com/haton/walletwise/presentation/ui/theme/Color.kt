@@ -9,6 +9,6 @@ val BaseLightPalette = WiseColors(
     primary = Color(0xFFB5E0AB),
     blackText = Color(0xFF082417),
     fadedText = Color(0x80082417),
-    gradientStart = Color(0xFF5CBC9F),
-    gradientEnd = Color(0xFFFFFCB3),
+    gradientStart = Color(0xFF93C886),
+    gradientEnd = Color(0xFFE7FFE1),
 )

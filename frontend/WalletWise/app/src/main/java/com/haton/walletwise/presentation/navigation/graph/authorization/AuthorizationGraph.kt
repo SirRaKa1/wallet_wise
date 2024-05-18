@@ -1,5 +1,7 @@
 package com.haton.walletwise.presentation.navigation.graph.authorization
 
+import android.annotation.SuppressLint
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -22,6 +24,7 @@ private val signUp = AuthorizationGraphDestination.SignUp.destination
 
 fun NavGraphBuilder.authorizationGraph(
     navController: NavController,
+    onSignIn: () -> Unit
 ) {
     navigation(
         route = AuthorizationNavGraph.Authorization.destination,
@@ -36,21 +39,13 @@ fun NavGraphBuilder.authorizationGraph(
             FirstEntryView(
                 firstEntryViewModel = firstEntryViewModel,
                 onSignIn = {
-                    navController.navigate(sighIn){
-                        popUpTo(navController.graph.startDestinationId) {
-                            inclusive = true
-                        }
-                        launchSingleTop = true
-                    }
+                    pageNavigation(
+                        navController = navController,
+                        destination = sighIn,
+                        incl = true
+                    )
                 },
-                onSignUp = {
-                    navController.navigate(sighIn){
-                        popUpTo(navController.graph.startDestinationId) {
-                            inclusive = true
-                        }
-                        launchSingleTop = true
-                    }
-                }
+                onSignUp = onSignIn
             )
         }
         composable(
@@ -60,16 +55,12 @@ fun NavGraphBuilder.authorizationGraph(
             val signInViewModel = hiltViewModel<SignInViewModel>()
             SignInView(
                 signInViewModel = signInViewModel,
-                onSignIn = {
-                    Toast.makeText(context, "Успешный вход", Toast.LENGTH_LONG).show()
-                },
+                onSignIn = { onSignIn() },
                 onSignUp = {
-                    navController.navigate(signUp){
-                        popUpTo(navController.graph.startDestinationId) {
-                            inclusive = true
-                        }
-                        launchSingleTop = true
-                    }
+                    pageNavigation2(
+                        navController = navController,
+                        destination = signUp,
+                    )
                 },
                 onForgotPassword = {
                     Toast.makeText(context, "Пароль восстановлен", Toast.LENGTH_LONG).show()
@@ -84,23 +75,47 @@ fun NavGraphBuilder.authorizationGraph(
             SignUpView(
                 signUpViewModel = signUpViewModel,
                 onSignIn = {
-                    navController.navigate(sighIn){
-                        popUpTo(navController.graph.startDestinationId) {
-                            inclusive = true
-                        }
-                        launchSingleTop = true
-                    }
+                    pageNavigation2(
+                        navController = navController,
+                        destination = sighIn,
+                    )
                 },
                 onSignUp = {
                     Toast.makeText(context, "Успешная регистрация", Toast.LENGTH_LONG).show()
-                    navController.navigate(sighIn){
-                        popUpTo(navController.graph.startDestinationId) {
-                            inclusive = true
-                        }
-                        launchSingleTop = true
-                    }
+                    pageNavigation2(
+                        navController = navController,
+                        destination = sighIn,
+                    )
                 }
             )
         }
     }
+}
+
+@SuppressLint("RestrictedApi")
+private fun pageNavigation2(
+    navController: NavController,
+    destination: String = ""
+) {
+    val backStack = navController.currentBackStack.value
+    val size = backStack.size
+    val tail = arrayListOf<String>()
+    for (i in 1 until size) {
+        if (backStack[i].destination.route == destination) {
+            var back = size - i - 1
+            while (back != 0) {
+                tail.add(backStack.last().destination.route!!)
+                navController.popBackStack()
+                back--
+            }
+            navController.popBackStack()
+            while (tail.isNotEmpty()) {
+                navController.navigate(tail.last())
+                tail.removeLast()
+            }
+            navController.navigate(destination)
+            return
+        }
+    }
+    navController.navigate(destination)
 }

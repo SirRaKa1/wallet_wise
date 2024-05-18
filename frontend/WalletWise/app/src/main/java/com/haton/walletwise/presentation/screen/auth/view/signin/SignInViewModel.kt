@@ -34,6 +34,7 @@ class SignInViewModel @Inject constructor(
         state: SignInState.Default
     ) {
         when (event) {
+            SignInEvent.EnterView -> _state.value = SignInState.Default
             SignInEvent.SignUp -> {
                 _state.value = SignInState.SignUp
             }
@@ -59,6 +60,7 @@ class SignInViewModel @Inject constructor(
         state: SignInState.SignInAttempt
     ) {
         when (event) {
+            SignInEvent.EnterView -> _state.value = SignInState.Default
             SignInEvent.SignInSuccess -> {
                 _state.value = SignInState.SignInSuccess
             }
@@ -98,6 +100,7 @@ class SignInViewModel @Inject constructor(
         state: SignInState.SignInError
     ) {
         when (event) {
+            SignInEvent.EnterView -> _state.value = SignInState.Default
             SignInEvent.SignUp -> {
                 _state.value = SignInState.SignUp
             }
