@@ -28,7 +28,7 @@ public class Wallet {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "userId")
+    @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 

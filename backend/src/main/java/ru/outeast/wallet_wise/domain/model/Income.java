@@ -31,12 +31,12 @@ public class Income {
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "walletId")
+    @JoinColumn(name = "wallet_id")
     @JsonIgnore
     private Wallet wallet;
 
     @ManyToOne
-    @JoinColumn(name = "targetId")
+    @JoinColumn(name = "target_id")
     @JsonIgnore
     private Target target;
 
