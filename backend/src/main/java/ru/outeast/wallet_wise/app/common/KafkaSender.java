@@ -1,4 +1,4 @@
-package ru.outeast.wallet_wise.config;
+package ru.outeast.wallet_wise.app.common;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

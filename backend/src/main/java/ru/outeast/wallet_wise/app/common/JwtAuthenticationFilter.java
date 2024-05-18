@@ -1,4 +1,4 @@
-package ru.outeast.wallet_wise.config;
+package ru.outeast.wallet_wise.app.common;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

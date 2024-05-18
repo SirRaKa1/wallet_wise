@@ -5,9 +5,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.outeast.wallet_wise.domain.dto.JwtAuthenticationResponse;
-import ru.outeast.wallet_wise.domain.dto.SignUpRequest;
-import ru.outeast.wallet_wise.domain.dto.SignInRequest;
+
+import ru.outeast.wallet_wise.domain.dto.request.SignInRequest;
+import ru.outeast.wallet_wise.domain.dto.request.SignUpRequest;
+import ru.outeast.wallet_wise.domain.dto.response.JwtAuthenticationResponse;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.exception.SignInException;
 import ru.outeast.wallet_wise.exception.UserExistsException;

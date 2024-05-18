@@ -1,4 +1,4 @@
-package ru.outeast.wallet_wise.controller;
+package ru.outeast.wallet_wise.app.controller;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

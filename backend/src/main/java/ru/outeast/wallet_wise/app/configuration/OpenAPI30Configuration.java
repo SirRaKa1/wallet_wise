@@ -1,4 +1,4 @@
-package ru.outeast.wallet_wise.config;
+package ru.outeast.wallet_wise.app.configuration;
 
 import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;

@@ -1,6 +1,8 @@
-package ru.outeast.wallet_wise.config;
+package ru.outeast.wallet_wise.app.configuration;
 
 import lombok.RequiredArgsConstructor;
+import ru.outeast.wallet_wise.app.common.JwtAuthenticationFilter;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
