@@ -36,18 +36,20 @@ fun NavGraphBuilder.authorizationGraph(
             FirstEntryView(
                 firstEntryViewModel = firstEntryViewModel,
                 onSignIn = {
-                    pageNavigation(
-                        navController = navController,
-                        destination = sighIn,
-                        incl = true
-                    )
+                    navController.navigate(sighIn){
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 },
                 onSignUp = {
-                    pageNavigation(
-                        navController = navController,
-                        destination = signUp,
-                        incl = true
-                    )
+                    navController.navigate(sighIn){
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
@@ -62,11 +64,12 @@ fun NavGraphBuilder.authorizationGraph(
                     Toast.makeText(context, "Успешный вход", Toast.LENGTH_LONG).show()
                 },
                 onSignUp = {
-                    pageNavigation(
-                        navController = navController,
-                        destination = signUp,
-                        incl = true
-                    )
+                    navController.navigate(signUp){
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 },
                 onForgotPassword = {
                     Toast.makeText(context, "Пароль восстановлен", Toast.LENGTH_LONG).show()
@@ -81,19 +84,21 @@ fun NavGraphBuilder.authorizationGraph(
             SignUpView(
                 signUpViewModel = signUpViewModel,
                 onSignIn = {
-                    pageNavigation(
-                        navController = navController,
-                        destination = sighIn,
-                        incl = true
-                    )
+                    navController.navigate(sighIn){
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 },
                 onSignUp = {
                     Toast.makeText(context, "Успешная регистрация", Toast.LENGTH_LONG).show()
-                    pageNavigation(
-                        navController = navController,
-                        destination = sighIn,
-                        incl = true
-                    )
+                    navController.navigate(sighIn){
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
+                        launchSingleTop = true
+                    }
                 }
             )
         }
