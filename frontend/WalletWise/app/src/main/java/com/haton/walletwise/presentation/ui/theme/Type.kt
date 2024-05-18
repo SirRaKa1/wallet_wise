@@ -2,6 +2,7 @@ package com.haton.walletwise.presentation.ui.theme
 
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 
@@ -15,7 +16,8 @@ val Typography = WiseTypography(
         fontFamily = Manrope,
         fontWeight = Bold,
         fontSize = 24.sp,
-        color = BaseLightPalette.blackText
+        color = BaseLightPalette.blackText,
+        textAlign = TextAlign.Center
     ),
     buttonText = TextStyle(
         fontFamily = Manrope,

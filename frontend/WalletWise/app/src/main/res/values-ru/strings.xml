@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Wallet Wise</string>
-    <string name="authorization__greeting">Добро пожаловать в WalletWise</string>
-    <string name="authorization__sig_up">Зарегестрироваться</string>
-    <string name="authorization__sing_in">Войти</string>
+    <string name="authorization__greeting">Добро пожаловать\nв WalletWise</string>
+    <string name="authorization__sign_up">Зарегестрироваться</string>
+    <string name="authorization__sign_in">Войти</string>
     <string name="authorization__question">Уже есть аккаунт?</string>
+    <string name="authorization__forgot_password">Забыли пароль?</string>
     <string name="authorization__register">Регистрация</string>
     <string name="authorization__authorization">Авторизация</string>
     <string name="authorization__login">Логин</string>

@@ -40,7 +40,7 @@ val Manrope = FontFamily(
     Font(R.font.manrope_bold, FontWeight.Bold),
 )
 
-object WarmerCommon {
+object WiseCommon {
     val colors: WiseColors
         @Composable
         get() = LocalWiseColors.current
