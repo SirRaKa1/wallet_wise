@@ -3,7 +3,7 @@ package ru.outeast.wallet_wise.app.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
+import jakarta.validation.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,8 @@ import ru.outeast.wallet_wise.domain.dto.response.JwtAuthenticationResponse;
 import ru.outeast.wallet_wise.exception.SignInException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
 import ru.outeast.wallet_wise.service.AuthenticationService;
+
+import java.util.Set;
 
 
 @RestController
@@ -29,7 +31,7 @@ public class AuthController {
     @Operation(summary = "Регистрация пользователя")
     @PostMapping("/sign-up")
     @ResponseStatus(HttpStatus.CREATED)
-    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) throws UserExistsException {
+    public JwtAuthenticationResponse signUp(@RequestBody @Valid SignUpRequest request) throws UserExistsException{
         JwtAuthenticationResponse jwtAuthenticationResponse = authenticationService.signUp(request);
         kafkaSender.sendMessage("Пользователь вошёл","auth_topic");
         return jwtAuthenticationResponse;
