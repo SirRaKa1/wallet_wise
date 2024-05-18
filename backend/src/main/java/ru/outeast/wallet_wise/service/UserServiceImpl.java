@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import ru.outeast.wallet_wise.domain.dto.UserDto;
+import ru.outeast.wallet_wise.domain.dto.request.UserDto;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.exception.UserExistsException;

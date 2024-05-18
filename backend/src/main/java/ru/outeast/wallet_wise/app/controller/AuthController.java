@@ -1,4 +1,4 @@
-package ru.outeast.wallet_wise.controller;
+package ru.outeast.wallet_wise.app.controller;
 
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -7,10 +7,11 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
-import ru.outeast.wallet_wise.config.KafkaSender;
-import ru.outeast.wallet_wise.domain.dto.JwtAuthenticationResponse;
-import ru.outeast.wallet_wise.domain.dto.SignInRequest;
-import ru.outeast.wallet_wise.domain.dto.SignUpRequest;
+
+import ru.outeast.wallet_wise.app.common.KafkaSender;
+import ru.outeast.wallet_wise.domain.dto.request.SignInRequest;
+import ru.outeast.wallet_wise.domain.dto.request.SignUpRequest;
+import ru.outeast.wallet_wise.domain.dto.response.JwtAuthenticationResponse;
 import ru.outeast.wallet_wise.exception.SignInException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
 import ru.outeast.wallet_wise.service.AuthenticationService;

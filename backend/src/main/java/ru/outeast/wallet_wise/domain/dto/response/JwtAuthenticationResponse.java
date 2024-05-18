@@ -1,4 +1,4 @@
-package ru.outeast.wallet_wise.domain.dto;
+package ru.outeast.wallet_wise.domain.dto.response;
 
 
 import io.swagger.v3.oas.annotations.media.Schema;

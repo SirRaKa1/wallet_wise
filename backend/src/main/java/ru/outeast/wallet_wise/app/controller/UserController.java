@@ -1,4 +1,4 @@
-package ru.outeast.wallet_wise.controller;
+package ru.outeast.wallet_wise.app.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -11,7 +11,7 @@ import java.util.UUID;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-import ru.outeast.wallet_wise.domain.dto.*;
+import ru.outeast.wallet_wise.domain.dto.request.UserDto;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.service.UserService;
