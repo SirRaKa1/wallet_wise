@@ -47,9 +47,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User updateUser(UserDto userBody, UUID userId) throws UserDoesNotExistException {
-        User user = userRepository.findById(userId).orElse(null);
-        if (user == null)
-            throw new UserDoesNotExistException();
+        User user = userRepository.findById(userId).orElseThrow(UserDoesNotExistException::new);
         if (userBody.getNickname() != null)
             user.setNickname(userBody.getNickname());
         if (userBody.getMail() != null)
