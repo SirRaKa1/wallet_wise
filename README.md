@@ -49,6 +49,7 @@
 - Hilt - Dependency Injection библиотека для внедрения зависимостей, построенная на основе Dagger
 
 ### Архитектура мобильного приложения
+Для разработки была выбрана паттерн MVI и архитектура Clean Architecture, что подразумевает отсуствие запутанности во внутренних связках приложения.
 
     ├── animation                         # Jetpack navigation, transition animation
     ├── base                              # Interface Event<T> с методом send(event: T) для viewModel, для обратобки входящих событий
