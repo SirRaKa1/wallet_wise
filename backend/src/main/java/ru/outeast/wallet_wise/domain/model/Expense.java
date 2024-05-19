@@ -30,12 +30,12 @@ public class Expense {
     @Column(name = "date")
     private Date date;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "wallet_id")
     @JsonIgnore
     private Wallet wallet;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "category_id")
     @JsonIgnore
     private Category category;

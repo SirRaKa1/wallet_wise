@@ -40,10 +40,10 @@ public class User implements UserDetails {
     @Column(name = "mail")
     private String mail;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Wallet> wallets;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", orphanRemoval = true)
     private List<Target> targets;
 
     @Override

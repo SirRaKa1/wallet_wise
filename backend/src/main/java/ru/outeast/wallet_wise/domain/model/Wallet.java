@@ -27,17 +27,17 @@ public class Wallet {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "wallet")
+    @OneToMany(mappedBy = "wallet", orphanRemoval = true)
     private List<Category> categories;
 
-    @OneToMany(mappedBy = "wallet")
+    @OneToMany(mappedBy = "wallet", orphanRemoval = true)
     private List<Expense> expenses;
 
-    @OneToMany(mappedBy = "wallet")
+    @OneToMany(mappedBy = "wallet", orphanRemoval = true)
     private List<Income> incomes;
 }

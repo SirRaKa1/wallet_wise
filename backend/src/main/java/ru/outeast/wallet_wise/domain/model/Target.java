@@ -33,7 +33,7 @@ public class Target {
     @OneToMany(mappedBy = "target")
     private List<Income> incomes;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
