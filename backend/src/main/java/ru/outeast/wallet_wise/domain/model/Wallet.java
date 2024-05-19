@@ -27,7 +27,7 @@ public class Wallet {
     @Column(name = "name")
     private String name;
 
-    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    @ManyToOne(cascade = {CascadeType.REMOVE})
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private User user;
