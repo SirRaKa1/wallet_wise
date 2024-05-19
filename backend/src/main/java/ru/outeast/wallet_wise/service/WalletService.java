@@ -1,6 +1,7 @@
 package ru.outeast.wallet_wise.service;
 
 import ru.outeast.wallet_wise.domain.dto.request.WalletCreate;
+import ru.outeast.wallet_wise.domain.dto.response.WalletInfo;
 import ru.outeast.wallet_wise.domain.model.Wallet;
 import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.exception.WalletDoesNotExistException;
@@ -17,9 +18,13 @@ public interface WalletService {
 
     public Wallet create(UUID userId, WalletCreate walletBody) throws WalletWithThisNameExistsException, UserDoesNotExistException;
 
+    public void delete(UUID userId, UUID id) throws WalletDoesNotExistException;
+
     // List<Wallet> GetCurrentUserWallets();
 
-    // Wallet getById(UUID uuid) throws WalletDoesNotExistException;
+    List<WalletInfo> GetUserWallets(UUID uuid);
+
+    public Wallet getById(UUID uuid) throws WalletDoesNotExistException;
 
     // Wallet updateWallet(Wallet wallet) throws WalletDoesNotExistException;
 

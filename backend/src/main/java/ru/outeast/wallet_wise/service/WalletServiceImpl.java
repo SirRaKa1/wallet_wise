@@ -2,11 +2,11 @@ package ru.outeast.wallet_wise.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Example;
-import org.springframework.security.core.context.SecurityContextHolder;
 
 import org.springframework.stereotype.Service;
 
 import ru.outeast.wallet_wise.domain.dto.request.WalletCreate;
+import ru.outeast.wallet_wise.domain.dto.response.WalletInfo;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.domain.model.Wallet;
 import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
@@ -61,22 +61,18 @@ public class WalletServiceImpl implements WalletService {
         return walletRepository.save(wallet);
     }
 
-    // @Override
-    // public List<Wallet> GetCurrentUserWallets() {
-    // return walletRepository.findAll(
-    // Example.of(
-    // Wallet.builder().user(
-    // User.builder()
-    // .nickname(SecurityContextHolder.getContext().getAuthentication().getName())
-    // .build())
-    // .build()));
-    // }
 
-    // @Override
-    // public Wallet getById(UUID uuid) throws WalletDoesNotExistException {
-    // return
-    // walletRepository.findById(uuid).orElseThrow(WalletDoesNotExistException::new);
-    // }
+    @Override
+    public List<WalletInfo> GetUserWallets(UUID uuid) {
+        List<WalletInfo> wallets = walletRepository.findWalletProjectionsByUserId(uuid);
+        wallets.add(0,walletRepository.findTotalBalanceByUserId(uuid));
+        return wallets;
+    }
+
+    @Override
+    public Wallet getById(UUID uuid) throws WalletDoesNotExistException {
+        return walletRepository.findById(uuid).orElseThrow(WalletDoesNotExistException::new);
+    }
 
     // @Override
     // public Wallet updateWallet(Wallet wallet) throws WalletDoesNotExistException
@@ -86,9 +82,15 @@ public class WalletServiceImpl implements WalletService {
     // return save(wallet);
     // }
 
-    // @Override
-    // public void delete(Wallet wallet) {
-    // walletRepository.delete(wallet);
-    // }
+
+    @Override
+    public void delete(UUID userId, UUID id) throws WalletDoesNotExistException {
+        Wallet wallet = getById(id);
+        if (wallet.getUser().getId().equals(userId))
+            walletRepository.delete(wallet);
+        else
+            throw new WalletDoesNotExistException();
+    }
+
 
 }
