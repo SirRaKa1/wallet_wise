@@ -34,7 +34,7 @@ public class LoggingFilter extends OncePerRequestFilter {
         int status = response.getStatus();
         ZonedDateTime after = ZonedDateTime.now();
         kafkaSender.sendMessage(
-                after + ": " + path + " response time: " + ChronoUnit.MILLIS.between(before,after) + " | " + status,
+                after + ": " + path + " response time: " + ChronoUnit.MILLIS.between(before,after) + "ms | STATUS [" + status + "]",
                 "request_topic");
     }
 }
