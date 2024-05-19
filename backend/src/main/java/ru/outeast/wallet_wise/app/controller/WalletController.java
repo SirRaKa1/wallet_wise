@@ -6,6 +6,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import ru.outeast.wallet_wise.domain.dto.request.WalletCreate;
+import ru.outeast.wallet_wise.domain.dto.request.WalletUpdate;
 import ru.outeast.wallet_wise.domain.dto.response.WalletAfterCreate;
 import ru.outeast.wallet_wise.domain.dto.response.WalletInfo;
 import ru.outeast.wallet_wise.domain.model.Wallet;
@@ -73,16 +74,9 @@ public class WalletController {
     @PutMapping(value = "/{id}")
     @Operation(summary = "Update wallet")
     @ResponseStatus(HttpStatus.OK)
-    public WalletAfterCreate updateWallet(@PathVariable(name = "id") UUID id, @RequestBody @Valid WalletCreate walletBody) throws WalletDoesNotExistException {
+    public WalletAfterCreate updateWallet(@PathVariable(name = "id") UUID id, @RequestBody @Valid WalletUpdate walletBody) throws WalletDoesNotExistException {
         UUID userId = (UUID) SecurityContextHolder.getContext().getAuthentication().getCredentials();
-        Wallet wallet = walletService.getById(id);
-        if (!wallet.getUser().getId().equals(userId))
-            throw new WalletDoesNotExistException();
-        if (walletBody.getName()!=null)
-            wallet.setName(walletBody.getName());
-        if (walletBody.getBalance()!=null)
-            wallet.setBalance(walletBody.getBalance());
-        wallet = walletService.save(wallet);
+        Wallet wallet = walletService.update(id, userId, walletBody);
         return new WalletAfterCreate(wallet.getId(), wallet.getBalance(), wallet.getName());
     }
 

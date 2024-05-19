@@ -6,6 +6,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import ru.outeast.wallet_wise.domain.dto.request.WalletCreate;
+import ru.outeast.wallet_wise.domain.dto.request.WalletUpdate;
 import ru.outeast.wallet_wise.domain.dto.response.WalletInfo;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.domain.model.Wallet;
@@ -64,7 +65,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public List<WalletInfo> GetUserWallets(UUID uuid) {
-        List<WalletInfo> wallets = walletRepository.findWalletProjectionsByUserId(uuid);
+        List<WalletInfo> wallets = walletRepository.findWalletInfosByUserId(uuid);
         wallets.add(0,walletRepository.findTotalBalanceByUserId(uuid));
         return wallets;
     }
@@ -72,6 +73,18 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet getById(UUID uuid) throws WalletDoesNotExistException {
         return walletRepository.findById(uuid).orElseThrow(WalletDoesNotExistException::new);
+    }
+
+    @Override
+    public Wallet update(UUID id,UUID userId, WalletUpdate walletBody) throws WalletDoesNotExistException {
+        Wallet wallet = getById(id);
+        if (!wallet.getUser().getId().equals(userId))
+            throw new WalletDoesNotExistException();
+        if (walletBody.getName()!=null)
+            wallet.setName(walletBody.getName());
+        if (walletBody.getBalance()!=null)
+            wallet.setBalance(walletBody.getBalance());
+        return save(wallet);
     }
 
     // @Override

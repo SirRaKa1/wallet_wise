@@ -13,7 +13,7 @@ public interface WalletRepository extends JpaRepository<Wallet, UUID> {
     @Query("SELECT new ru.outeast.wallet_wise.domain.dto.response.WalletInfo(w.name, w.balance) " +
             "FROM Wallet w " +
             "WHERE w.user.id = :userId")
-    List<WalletInfo> findWalletProjectionsByUserId(@Param("userId") UUID userId);
+    List<WalletInfo> findWalletInfosByUserId(@Param("userId") UUID userId);
 
     @Query("SELECT new ru.outeast.wallet_wise.domain.dto.response.WalletInfo('Total Balance', CAST(SUM(w.balance) AS float)) " +
             "FROM Wallet w " +
