@@ -6,7 +6,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ru.outeast.wallet_wise.domain.model.User;
-import ru.outeast.wallet_wise.repository.UserRepository;
+import ru.outeast.wallet_wise.repository.jpa.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {

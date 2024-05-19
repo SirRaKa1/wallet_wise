@@ -15,7 +15,7 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import ru.outeast.wallet_wise.repository.UserRepository;
+import ru.outeast.wallet_wise.repository.jpa.UserRepository;
 import ru.outeast.wallet_wise.service.JwtService;
 
 import java.io.IOException;

@@ -8,7 +8,7 @@ import ru.outeast.wallet_wise.domain.dto.request.UserDto;
 import ru.outeast.wallet_wise.domain.model.User;
 import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.exception.UserExistsException;
-import ru.outeast.wallet_wise.repository.UserRepository;
+import ru.outeast.wallet_wise.repository.jpa.UserRepository;
 
 import java.util.UUID;
 

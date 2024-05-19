@@ -12,8 +12,8 @@ import ru.outeast.wallet_wise.domain.model.Wallet;
 import ru.outeast.wallet_wise.exception.UserDoesNotExistException;
 import ru.outeast.wallet_wise.exception.WalletDoesNotExistException;
 import ru.outeast.wallet_wise.exception.WalletWithThisNameExistsException;
-import ru.outeast.wallet_wise.repository.UserRepository;
-import ru.outeast.wallet_wise.repository.WalletRepository;
+import ru.outeast.wallet_wise.repository.jpa.UserRepository;
+import ru.outeast.wallet_wise.repository.jpa.WalletRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,11 +34,9 @@ public class WalletServiceImpl implements WalletService {
                 Example.of(Wallet.builder().user(user).name(walletBody.getName()).build()));
         if (isWalletExists)
             throw new WalletWithThisNameExistsException();
-        Wallet wallet = new Wallet();
-        wallet.setId(UUID.randomUUID());
-        wallet.setBalance(walletBody.getBalance());
-        wallet.setName(walletBody.getName());
-        wallet.setUser(user);
+        Wallet wallet = createByNameAndUser(walletBody.getName(), user);
+        if (walletBody.getBalance() == null) wallet.setBalance(0f);
+        else wallet.setBalance(walletBody.getBalance());
         return save(wallet);
     }
 
@@ -60,7 +58,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet save(Wallet wallet) {
-    return walletRepository.save(wallet);
+        return walletRepository.save(wallet);
     }
 
     // @Override
