@@ -12,6 +12,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
 
 @Component
 @RequiredArgsConstructor
@@ -24,14 +25,16 @@ public class LoggingFilter extends OncePerRequestFilter {
             @NonNull HttpServletResponse response,
             @NonNull FilterChain filterChain) throws ServletException, IOException {
 
+        ZonedDateTime before = ZonedDateTime.now();
 
         filterChain.doFilter(request, response);
 
         String path = request.getRequestURI();
 
         int status = response.getStatus();
+        ZonedDateTime after = ZonedDateTime.now();
         kafkaSender.sendMessage(
-                ZonedDateTime.now() + ": " + path + " | " + status,
+                after + ": " + path + " response time: " + ChronoUnit.MILLIS.between(before,after) + "ms | STATUS [" + status + "]",
                 "request_topic");
     }
 }
